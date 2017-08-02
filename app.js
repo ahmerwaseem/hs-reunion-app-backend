@@ -4,9 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Sequelize = require("sequelize");
 
-var api = require('./routes/api');
-var login = require('./routes/login');
+const sequelize = new Sequelize('postgres://awaseem:null@localhost:5432/hsreunion');
+
+var events = require('./routes/events');
+var user = require('./routes/user');
+var reservations = require('./routes/reservations');
+var root = require('./routes/root');
 
 var app = express();
 
@@ -22,9 +27,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', api);
-app.use('/api', api);
-app.use('/login', login);
+app.use('/', root);
+app.use('/events', events);
+app.use('/user', user);
+app.use('/reservations',reservations);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

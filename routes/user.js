@@ -47,6 +47,13 @@ router.post('/whosgoing', function(req, res, next) {
 })
 });
 
+router.get('/all', function(req, res, next) {
+  userTable.findAll()
+    .then(result => {
+      res.json(result);
+  })
+});
+
 
 router.post('/exists', function(req,res,next){
   const { email } = req.body;

@@ -25,18 +25,6 @@ const userTable =
     timestamps: false
 });
 
-//userTable.hasMany(reservationsTable, {foreignKey: 'userid', as: 'id'});
-
-// userTable.findOne({ 
-//   attributes:[ 'email', 'password'] , 
-//   where: {email: 'ahmerw007@gmail.com'} })
-//   .then(user => {
-//     console.log(user.dataValues.email, user.dataValues.password)
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   })
-//   ;
 /* GET users listing. */
 router.post('/whosgoing', function(req, res, next) {
   const { eventid } = req.body;
@@ -48,7 +36,9 @@ router.post('/whosgoing', function(req, res, next) {
 });
 
 router.get('/all', function(req, res, next) {
-  userTable.findAll()
+  userTable.findAll({
+    order: sequelize.col('lastname')
+  })
     .then(result => {
       res.json(result);
   })
@@ -129,5 +119,4 @@ router.post('/login', function(req,res,next){
   
 });
 
-module.exports = router;
 module.exports = router;
